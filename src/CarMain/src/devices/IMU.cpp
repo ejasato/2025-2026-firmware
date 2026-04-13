@@ -37,40 +37,43 @@ namespace BajaWildcatRacing
 
     }
 
-    float IMU::getLatestAccelerationX(){
-
-        sendCanRequest(0x04, &accX, sizeof(float));
-        return accX;
-
+    IMU::LatestAccelerationXYZ IMU::getLatestAccelerationXYZ(){
+        sendCanRequest(0x04, &accXYZ.accelerationx, sizeof(float));
+        sendCanRequest(0x05, &accXYZ.accelerationy, sizeof(float));
+        sendCanRequest(0x06, &accXYZ.accelerationz, sizeof(float));
+        return accXYZ;
     }
 
-    float IMU::getLatestAccelerationY(){
+    // float IMU::getLatestAccelerationY(){
 
-        sendCanRequest(0x05, &accY, sizeof(float));
-        return accY;
+    //     sendCanRequest(0x05, &accY, sizeof(float));
+    //     return accY;
 
+    // }
+
+    // float IMU::getLatestAccelerationZ(){
+
+    //     sendCanRequest(0x06, &accZ, sizeof(float));
+    //     return accZ;
+
+    // }
+
+    IMU::LatestRotationXYZ IMU::getLatestRotationXYZ(){
+        sendCanRequest(0x01, &rotXYZ.rotationx, sizeof(float));
+        sendCanRequest(0x02, &rotXYZ.rotationy, sizeof(float));
+        sendCanRequest(0x03, &rotXYZ.rotationz, sizeof(float));
+        return rotXYZ;
     }
 
-    float IMU::getLatestAccelerationZ(){
+    // float IMU::getLatestRotationY(){
+    //     sendCanRequest(0x02, &rotY, sizeof(float));
+    //     return rotY;
+    // }
 
-        sendCanRequest(0x06, &accZ, sizeof(float));
-        return accZ;
-
-    }
-
-    float IMU::getLatestRotationX(){
-        sendCanRequest(0x01, &rotX, sizeof(float));
-        return rotX;
-    }
-
-    float IMU::getLatestRotationY(){
-        sendCanRequest(0x02, &rotY, sizeof(float));
-        return rotY;
-    }
-
-    float IMU::getLatestRotationZ(){
-        sendCanRequest(0x03, &rotZ, sizeof(float));
-        return rotZ;
-    }
-
+    // float IMU::getLatestRotationZ(){
+    //     sendCanRequest(0x03, &rotZ, sizeof(float));
+    //     return rotZ;
+    // }
 }
+
+

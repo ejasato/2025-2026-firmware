@@ -32,36 +32,22 @@ class IMULoggingProcedure : public Procedure{
 
         void execute() override {
 
-            float xRot = imuSubsystem.getRotationX();
-            float yRot = imuSubsystem.getRotationY();
-            float zRot = imuSubsystem.getRotationZ();
+            IMU::LatestRotationXYZ rotation = imuSubsystem.getRotationXYZ();
+            IMU::LatestAccelerationXYZ acceleration = imuSubsystem.getAccelerationXYZ();
 
-            float xAccel = imuSubsystem.getAccelerationX();
-            float yAccel = imuSubsystem.getAccelerationY();
-            float zAccel = imuSubsystem.getAccelerationZ();
+            dataStorage.storeData(rotation.rotationx, DataTypes::IMU_ROTATION_X);
+            dataStorage.storeData(rotation.rotationy, DataTypes::IMU_ROTATION_Y);
+            dataStorage.storeData(rotation.rotationz, DataTypes::IMU_ROTATION_Z);
+            dataStorage.storeData(acceleration.accelerationx, DataTypes::IMU_ACCELERATION_X);
+            dataStorage.storeData(acceleration.accelerationy, DataTypes::IMU_ACCELERATION_Y);
+            dataStorage.storeData(acceleration.accelerationz, DataTypes::IMU_ACCELERATION_Z);
 
-
-            dataStorage.storeData(xRot, DataTypes::IMU_ROTATION_X);
-            dataStorage.storeData(yRot, DataTypes::IMU_ROTATION_Y);
-            dataStorage.storeData(zRot, DataTypes::IMU_ROTATION_Z);
-
-            dataStorage.storeData(xAccel, DataTypes::IMU_ACCELERATION_X);
-            dataStorage.storeData(yAccel, DataTypes::IMU_ACCELERATION_Y);
-            dataStorage.storeData(zAccel, DataTypes::IMU_ACCELERATION_Z);
-
-            coms.sendData(DataTypes::IMU_ROTATION_X, xRot);
-            coms.sendData(DataTypes::IMU_ROTATION_Y, yRot);
-            coms.sendData(DataTypes::IMU_ROTATION_Z, zRot);
-            coms.sendData(DataTypes::IMU_ACCELERATION_X, xAccel);
-            coms.sendData(DataTypes::IMU_ACCELERATION_Y, yAccel);
-            coms.sendData(DataTypes::IMU_ACCELERATION_Z, zAccel);
-
-
-            // std::cout << std::fixed;
-            // std::cout << std::setprecision(2);
-
-            // std::cout << "X: " << xRot << " Y: " << yRot << " Z: " << zRot << std::endl;
-            // std::cout << "X-A: " << xAccel << " Y-A: " << yAccel << " Z-A: " << zAccel << std::endl;
+            coms.sendData(DataTypes::IMU_ROTATION_X, rotation.rotationx);
+            coms.sendData(DataTypes::IMU_ROTATION_Y, rotation.rotationy);
+            coms.sendData(DataTypes::IMU_ROTATION_Z, rotation.rotationz);
+            coms.sendData(DataTypes::IMU_ACCELERATION_X, acceleration.accelerationx);
+            coms.sendData(DataTypes::IMU_ACCELERATION_Y, acceleration.accelerationy);
+            coms.sendData(DataTypes::IMU_ACCELERATION_Z, acceleration.accelerationz);
         }
 
         void end() override {
