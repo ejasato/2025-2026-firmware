@@ -4,9 +4,12 @@
 #include <Adafruit_Sensor.h>
 #include <Adafruit_BNO055.h>
 #include <utility/imumaths.h>
+#include "CANTProtocol.h"
 
 const int SPI_CS_PIN = 5; // CS pin for the MCP2515
 MCP_CAN CAN(SPI_CS_PIN);  // Create CAN object on CS pin
+CANTProtocol CAN(YOUR_CS_PIN, YOUR_INTERRUPT_PIN, CAN_ID);//initialize CANT
+
 
 Adafruit_BNO055 bno = Adafruit_BNO055(55);
 

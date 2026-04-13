@@ -36,19 +36,15 @@ class IMULoggingProcedure : public Procedure{
             LatestRotationXYZ rotation = imuSubsystem.getRotationXYZ();
             LatestAccelerationXYZ acceleration = imuSubsystem.getAccelerationXYZ();
 
-            dataStorage.storeData(rotation.rotationx, DataTypes::IMU_ROTATION_X);
-            dataStorage.storeData(rotation.rotationy, DataTypes::IMU_ROTATION_Y);
-            dataStorage.storeData(rotation.rotationz, DataTypes::IMU_ROTATION_Z);
-            dataStorage.storeData(acceleration.accelerationx, DataTypes::IMU_ACCELERATION_X);
-            dataStorage.storeData(acceleration.accelerationy, DataTypes::IMU_ACCELERATION_Y);
-            dataStorage.storeData(acceleration.accelerationz, DataTypes::IMU_ACCELERATION_Z);
+            // dataStorage.storeData(rotation, DataTypes::LatestRotationXYZ);
+            // dataStorage.storeData(acceleration, DataTypes::LatestAccelerationXYZ);
+            byte rotData[sizeof(LatestRotationXYZ)];
+            memcpy(rotData, &rotation, sizeof(LatestRotationXYZ));
+            coms.sendData(DataTypes::IMU_ROTATION, rotData, sizeof(LatestRotationXYZ));
 
-            coms.sendData(DataTypes::IMU_ROTATION_X, rotation.rotationx);
-            coms.sendData(DataTypes::IMU_ROTATION_Y, rotation.rotationy);
-            coms.sendData(DataTypes::IMU_ROTATION_Z, rotation.rotationz);
-            coms.sendData(DataTypes::IMU_ACCELERATION_X, acceleration.accelerationx);
-            coms.sendData(DataTypes::IMU_ACCELERATION_Y, acceleration.accelerationy);
-            coms.sendData(DataTypes::IMU_ACCELERATION_Z, acceleration.accelerationz);
+            byte accelData[sizeof(LatestAccelerationXYZ)];
+            memcpy(accelData, &acceleration, sizeof(LatestAccelerationXYZ));
+            coms.sendData(DataTypes::IMU_ACCELERATION, accelData, sizeof(LatestAccelerationXYZ));
         }
 
         void end() override {
