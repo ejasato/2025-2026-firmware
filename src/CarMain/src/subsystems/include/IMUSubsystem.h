@@ -1,6 +1,7 @@
 #ifndef IMUSUBSYSTEM_H
 #define IMUSUBSYSTEM_H
 
+#include "DataTypes.h"
 #include "IMU.h"
 #include "CANDispatcher.h"
 
@@ -12,8 +13,8 @@ namespace BajaWildcatRacing
 
             IMUSubsystem(CANDispatcher& canDispatcher);
             
-            IMU::LatestRotationXYZ getRotationXYZ();
-            IMU::LatestAccelerationXYZ getAccelerationXYZ();
+            LatestRotationXYZ getRotationXYZ();
+            LatestAccelerationXYZ getAccelerationXYZ();
 
         private:
             IMU imu;

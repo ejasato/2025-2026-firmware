@@ -18,17 +18,17 @@ namespace BajaWildcatRacing
         public:
             IMU(CANDispatcher& canDispatcher, byte deviceId);
 
-            typedef struct LatestRotationXYZ{
-                float rotationx;
-                float rotationy;
-                float rotationz;
-            }LatestRotationXYZ;
+            // typedef struct LatestRotationXYZ{
+            //     float rotationx;
+            //     float rotationy;
+            //     float rotationz;
+            // }LatestRotationXYZ;
 
-             typedef struct LatestAccelerationXYZ{
-                float accelerationx;
-                float accelerationy;
-                float accelerationz;
-            }LatestAccelerationXYZ;
+            //  typedef struct LatestAccelerationXYZ{
+            //     float accelerationx;
+            //     float accelerationy;
+            //     float accelerationz;
+            // }LatestAccelerationXYZ;
 
             LatestRotationXYZ getLatestRotationXYZ();
             LatestAccelerationXYZ getLatestAccelerationXYZ();

@@ -1,5 +1,5 @@
 #include "IMUSubsystem.h"
-
+#include "DataTypes.h"
 
 namespace BajaWildcatRacing
 {
@@ -23,11 +23,11 @@ namespace BajaWildcatRacing
     *  Returns: A double of the x value of the rotaiton
     *
     */
-    IMU::LatestRotationXYZ IMUSubsystem::getRotationXYZ(){
+    LatestRotationXYZ IMUSubsystem::getRotationXYZ(){
         return imu.getLatestRotationXYZ();
     }
 
-    IMU::LatestAccelerationXYZ IMUSubsystem::getAccelerationXYZ(){
+    LatestAccelerationXYZ IMUSubsystem::getAccelerationXYZ(){
         return imu.getLatestAccelerationX();
     }
 

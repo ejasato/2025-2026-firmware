@@ -3,6 +3,7 @@
 #include "DataStorage.h"
 #include "CarLogger.h"
 #include "Coms.h"
+#include "DataTypes.h"
 
 #include <iomanip>
 
@@ -32,8 +33,8 @@ class IMULoggingProcedure : public Procedure{
 
         void execute() override {
 
-            IMU::LatestRotationXYZ rotation = imuSubsystem.getRotationXYZ();
-            IMU::LatestAccelerationXYZ acceleration = imuSubsystem.getAccelerationXYZ();
+            LatestRotationXYZ rotation = imuSubsystem.getRotationXYZ();
+            LatestAccelerationXYZ acceleration = imuSubsystem.getAccelerationXYZ();
 
             dataStorage.storeData(rotation.rotationx, DataTypes::IMU_ROTATION_X);
             dataStorage.storeData(rotation.rotationy, DataTypes::IMU_ROTATION_Y);
