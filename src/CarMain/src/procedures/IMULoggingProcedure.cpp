@@ -40,11 +40,11 @@ class IMULoggingProcedure : public Procedure{
             // dataStorage.storeData(acceleration, DataTypes::LatestAccelerationXYZ);
             byte rotData[sizeof(LatestRotationXYZ)];
             memcpy(rotData, &rotation, sizeof(LatestRotationXYZ));
-            coms.sendData(DataTypes::IMU_ROTATION, rotData, sizeof(LatestRotationXYZ));
+            coms.sendData(DataType::IMU_ROTATION, rotData, sizeof(LatestRotationXYZ));
 
             byte accelData[sizeof(LatestAccelerationXYZ)];
             memcpy(accelData, &acceleration, sizeof(LatestAccelerationXYZ));
-            coms.sendData(DataTypes::IMU_ACCELERATION, accelData, sizeof(LatestAccelerationXYZ));
+            coms.sendData(DataType::IMU_ACCELERATION, accelData, sizeof(LatestAccelerationXYZ));
         }
 
         void end() override {
