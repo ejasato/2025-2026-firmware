@@ -10,7 +10,8 @@ enum Devices
     CVT_TEMP = 0x02,
     DASH = 0x03,
     TACHOMETER = 0x04,
-    SPEDOMETER = 0x05
+    SPEDOMETER = 0x05,
+    GPS = 0x06
 };
 
 }
