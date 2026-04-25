@@ -55,4 +55,18 @@ typedef struct BrakePressure{
     float rear;
 }LatestBrakePressure;
 
+typedef struct GPSPosition{
+    float longitude;
+    float latitude;
+    float atltitude;
+}GPSPosition;
+
+typedef struct EngineRPM{
+    float rpm;
+} EngineRPM;
+
+typedef struct CVTTemp{
+    float temp;
+}
+
 #endif
