@@ -19,6 +19,8 @@ enum DataType{
     CVT_TEMPERATURE = 0x08,
     DISTANCE = 0x09,
     ERRORS = 0x0A,
+    LATLON = 0x0B,
+    TIME = 0x0C,
     // Datatypes at or below 255 (0xFF) are the only ones that can be sent via radio, others will be ignored
 };
 
@@ -51,5 +53,11 @@ typedef struct LatestBrakePressure{
     float front;
     float rear;
 }LatestBrakePressure;
+
+typedef struct LatestLatLon{
+    float latitude;
+    float longitude;
+    float altitude;
+}LatestLatLon;
 
 #endif
