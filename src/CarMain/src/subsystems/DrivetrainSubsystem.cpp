@@ -7,6 +7,7 @@ namespace BajaWildcatRacing
     : cvtTemperature(canDispatcher, Device::Devices::CVT_TEMP)
     , tachometer(canDispatcher, Device::Devices::TACHOMETER)
     , spedometer(canDispatcher, Device::Devices::SPEDOMETER)
+    , gps(canDispatcher, Device::Devices::GPS)
     {
 
     }
@@ -52,6 +53,14 @@ namespace BajaWildcatRacing
         return ((spedometer.getFrontRightRPM() + spedometer.getFrontLeftRPM()) / 2.0) * 0.0647f; //Slightly different magic number
         return spedometer.getFrontRightRPM() * 0.0647f;
 
+    }
+
+    LatestLatLon GPSSubsystem::getLatLon(){
+        return gps.getLatestLatLon();
+    }
+
+    LatestTime GPSSubsystem::getTime(){
+        return gps.getLatestTime();
     }
 
 }

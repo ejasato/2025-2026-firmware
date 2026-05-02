@@ -10,12 +10,12 @@ namespace BajaWildcatRacing
     {
         public:
             GPS(CANDispatcher& canDispatcher, byte deviceId);
-            LatestLatLon getLatLon();
+            GPSPosition getPosition();
             uint32_t getTime();
             
 
         private:
-            LatestLatLon LatLon;
+            GPSPosition Position;
             uint32_t Time;
 
     };

@@ -36,15 +36,13 @@ class GPUProcedure : public Procedure{
             LatestLatLon TempLatLon = gpuSubsystem.getLatLon();
             uint32_t TempTime = gpuSubsystem.getTime();
 
-            // dataStorage.storeData(rotation, DataTypes::LatestRotationXYZ);
-            // dataStorage.storeData(acceleration, DataTypes::LatestAccelerationXYZ);
             byte rotData[sizeof(LatestLatLon)];
             memcpy(rotData, &TempLatLon, sizeof(LatestLatLon));
-            coms.sendData(DataType::LATLON, rotData, sizeof(LatestLatLon));
+            coms.sendData(DataType::GPS, rotData, sizeof(LatestLatLon));
 
-            byte accelData[sizeof(uint32_t)];
-            memcpy(accelData, &TempTime, sizeof(uint32_t));
-            coms.sendData(DataType::TIME, accelData, sizeof(uint32_t));
+            // byte accelData[sizeof(uint32_t)];
+            // memcpy(accelData, &TempTime, sizeof(uint32_t));
+            // coms.sendData(DataType::TIME, accelData, sizeof(uint32_t));
         }
 
         void end() override {

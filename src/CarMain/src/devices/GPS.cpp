@@ -1,3 +1,4 @@
+#include "DataTypes.h"
 #include "GPS.h"
 
 namespace BajaWildcatRacing
@@ -6,15 +7,15 @@ namespace BajaWildcatRacing
 
     }
 
-    LatestLatLon GPS::getLatLon()
+    GPSPosition GPS::getPosition()
     {
-        sendCanRequest(0x01, &m_latLon, sizeof(LatestLatLon));
-        return LatLon;
+        sendCanRequest(0x00, &Position, sizeof(GPSPosition));
+        return Position;
     }
 
     uint32_t GPS::getTime()
     {
-        sendCanRequest(0x02, &m_time, sizeof(uint32_t));
+        sendCanRequest(0x01, &Time, sizeof(uint32_t));
         return Time;
     }
 

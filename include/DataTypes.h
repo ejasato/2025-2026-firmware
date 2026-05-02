@@ -53,7 +53,7 @@ typedef struct ShockDisplacement{
 typedef struct BrakePressure{
     float front;
     float rear;
-}LatestBrakePressure;
+}BrakePressure;
 
 typedef struct GPSPosition{
     float longitude;

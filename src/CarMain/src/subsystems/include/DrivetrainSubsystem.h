@@ -8,6 +8,8 @@
 #include "Temperature.h"
 #include "Tachometer.h"
 #include "Spedometer.h"
+#include "GPS.h"
+
 
 namespace BajaWildcatRacing
 {
@@ -27,6 +29,8 @@ namespace BajaWildcatRacing
             float getRearRPM();
             float getCarSpeedMetersSec();
             float getCarSpeedMPH();
+            LatestLatLon getLatLon();
+            uint32_t getTime();
 
         private:
             Tachometer tachometer;
@@ -34,6 +38,8 @@ namespace BajaWildcatRacing
             Temperature cvtTemperature;
 
             Spedometer spedometer;
+
+            GPS gps;
             
             bool cvtIsHot = false;
 
