@@ -25,7 +25,12 @@ void builderT(unsigned char dataLength, byte* incomingData, unsigned long callba
 }
 
 void builderR(unsigned char dataLength, byte* incomingData, unsigned long callbackID){
+    if (myGNSS.getFixType() < 3){
+        CAN.sendRequestReponse(Boolean false, callbackID);
+}
+    else {
     CAN.sendRequestReponse(Boolean true, callbackID);
+    }
 }
 
 void setup()
@@ -41,10 +46,6 @@ void setup()
     myGNSS.saveConfigSelective(VAL_CFG_SUBSEC_IOPORT); //Save (only) the communications port settings to flash and BBR
     CAN.registerRequest(0, builderP);
     CAN.registerRequest(1, builderT);
-    uint8_t Ready = myGNSS.getFixType();
-    while(myGNSS.getFixType() < 3){  // keep checking until good fix
-        delay(100);
-    }
     CAN.registerRequest(2, builderR);
 }
 
