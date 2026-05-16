@@ -34,17 +34,27 @@ namespace BajaWildcatRacing
 {
 
     IMU::IMU(CANDispatcher& canDispatcher, byte deviceId) : CANDevice(canDispatcher, deviceId){
+        rot.rotationx = 0;
+        rot.rotationy = 0;
+        rot.rotationz = 0;
+        
+        accel.accelerationx = 0;
+        accel.accelerationy = 0;
+        accel.accelerationz = 0;
+    }
+
+    RotationXYZ IMU::getLatestRotation(){
+
+        sendCanRequest(0x00, &rot, sizeof(RotationXYZ));
+        return rot;
 
     }
 
-    LatestRotationXYZ IMU::getLatestRotationXYZ(){
-        sendCanRequest(0x00, &rotXYZ, sizeof(LatestRotationXYZ));
-        return rotXYZ;
+    AccelerationXYZ IMU::getLatestAcceleration(){
+
+        sendCanRequest(0x01, &accel, sizeof(AccelerationXYZ));
+        return accel;
+
     }
-    LatestAccelerationXYZ IMU::getLatestAccelerationXYZ(){
-        sendCanRequest(0x01, &accXYZ, sizeof(LatestAccelerationXYZ));
-        return accXYZ;
-    }   
+
 }
-
-

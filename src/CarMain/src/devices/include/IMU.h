@@ -3,12 +3,7 @@
 
 
 #include "CANDevice.h"
-#include "functional"
-// #include "linux/can.h"
-// #include "Devices.h"
-
-
-#include <chrono>
+#include "DataTypes.h"
 
 namespace BajaWildcatRacing
 {
@@ -18,25 +13,13 @@ namespace BajaWildcatRacing
         public:
             IMU(CANDispatcher& canDispatcher, byte deviceId);
 
-            // typedef struct LatestRotationXYZ{
-            //     float rotationx;
-            //     float rotationy;
-            //     float rotationz;
-            // }LatestRotationXYZ;
+            RotationXYZ getLatestRotation();
 
-            //  typedef struct LatestAccelerationXYZ{
-            //     float accelerationx;
-            //     float accelerationy;
-            //     float accelerationz;
-            // }LatestAccelerationXYZ;
-
-            LatestRotationXYZ getLatestRotationXYZ();
-            LatestAccelerationXYZ getLatestAccelerationXYZ();
-
+            AccelerationXYZ getLatestAcceleration();
         private:
 
-            LatestRotationXYZ rotXYZ;
-            LatestAccelerationXYZ accXYZ;
+            RotationXYZ rot;
+            AccelerationXYZ accel;
     };
 
 }

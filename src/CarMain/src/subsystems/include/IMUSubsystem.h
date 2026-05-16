@@ -12,9 +12,8 @@ namespace BajaWildcatRacing
         public:
 
             IMUSubsystem(CANDispatcher& canDispatcher);
-            
-            LatestRotationXYZ getRotationXYZ();
-            LatestAccelerationXYZ getAccelerationXYZ();
+            RotationXYZ getRotation();
+            AccelerationXYZ getAcceleration();
 
         private:
             IMU imu;

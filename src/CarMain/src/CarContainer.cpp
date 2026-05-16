@@ -69,13 +69,7 @@ namespace BajaWildcatRacing
              testSubsystem, coms, dataStorage
          );
 
-        procedureScheduler.bindCommand<IMULoggingProcedure>(
-            std::unordered_set<Command>({Command::DEFAULT_CAR_START, Command::START_LOG}), 
-            std::unordered_set<Command>({Command::END_LOG}), 
-            imuSubsystem, dataStorage, coms
-        )
-
-        // procedureScheduler.bindCommand<DistCalcProcedure>(
+        // procedureScheduler.bindCommand<CarStateProcedure>(
         //     std::unordered_set<Command>({Command::DEFAULT_CAR_START, Command::START_LOG}),
         //     std::unordered_set<Command>({Command::END_LOG}),
         //     drivetrainSubsystem, dashSubsystem, dataStorage, coms
