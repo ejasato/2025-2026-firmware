@@ -9,7 +9,7 @@ SFE_UBLOX_GNSS myGNSS;
 typedef struct GPSPosition{
     float longitude;
     float latitude;
-    float atltitude;
+    float altitude;
 }GPSPosition;
 
 void builderP(unsigned char dataLength, byte* incomingData, unsigned long callbackID){
@@ -21,15 +21,15 @@ void builderP(unsigned char dataLength, byte* incomingData, unsigned long callba
 
 void builderT(unsigned char dataLength, byte* incomingData, unsigned long callbackID){
     uint32_t time = myGNSS.getUnixEpoch();
-    CAN.snedRequestReponse(time, callbackID);
+    CAN.sendRequestReponse(time, callbackID);
 }
 
 void builderR(unsigned char dataLength, byte* incomingData, unsigned long callbackID){
     if (myGNSS.getFixType() < 3){
-        CAN.sendRequestReponse(Boolean false, callbackID);
-}
+        CAN.sendRequestReponse(false, callbackID);
+    }
     else {
-    CAN.sendRequestReponse(Boolean true, callbackID);
+        CAN.sendRequestReponse(true, callbackID);
     }
 }
 
