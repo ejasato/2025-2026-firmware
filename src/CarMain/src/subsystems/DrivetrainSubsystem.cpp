@@ -7,15 +7,19 @@ namespace BajaWildcatRacing
     : cvtTemperature(canDispatcher, Device::Devices::CVT_TEMP)
     , tachometer(canDispatcher, Device::Devices::TACHOMETER)
     , spedometer(canDispatcher, Device::Devices::SPEDOMETER)
-    , gps(canDispatcher, Device::Devices::GPS)
+    , frontBrakePressure(canDispatcher, Device::Devices::BRAKE_PRESSURE_FRONT)
+    , rearBrakePressure(canDispatcher, Device::Devices::BRAKE_PRESSURE_REAR)
+    , frontDisplacement(canDispatcher, Device::Devices::DISPLACEMENT_FRONT)
+    , rearDisplacement(canDispatcher, Device::Devices::DISPLACEMENT_REAR)
     {
 
     }
 
-    float DrivetrainSubsystem::getCVTTemperature(){
+    CVTTemp DrivetrainSubsystem::getCVTTemperature(){
         float temperature = cvtTemperature.getLatestTemperature();
-        float tempFarenheit = (temperature * (9.0f / 5.0f)) + 32.0f;
-        if(tempFarenheit > 200.0f) cvtIsHot = true;
+        CVTTemp tempFarenheit;
+        tempFarenheit.temp = (temperature * (9.0f / 5.0f)) + 32.0f;
+        if(tempFarenheit.temp > 200.0f) cvtIsHot = true;
         else cvtIsHot = false;
         return tempFarenheit;
     }
@@ -52,12 +56,22 @@ namespace BajaWildcatRacing
 
     }
 
-    LatestLatLon GPSSubsystem::getLatLon(){
-        return gps.getLatestLatLon();
+    BrakePressure DrivetrainSubsystem::getBrakePressure(){
+        BrakePressure bp;
+        bp.front = frontBrakePressure.getBrakePressure();
+        bp.rear = rearBrakePressure.getBrakePressure();
+        return bp;
     }
 
-    LatestTime GPSSubsystem::getTime(){
-        return gps.getLatestTime();
+    ShockDisplacement DrivetrainSubsystem::getDisplacement(){
+        ShockDisplacementPair front = frontDisplacement.getDisplacement();
+        ShockDisplacementPair rear = rearDisplacement.getDisplacement();
+        ShockDisplacement both;
+        both.frontLeft = front.left;
+        both.frontRight = front.right;
+        both.rearLeft = rear.left;
+        both.rearRight = rear.right;
+        return both;
     }
 
 }

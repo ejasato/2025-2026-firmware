@@ -8,8 +8,8 @@
 #include "Temperature.h"
 #include "Tachometer.h"
 #include "Spedometer.h"
-#include "GPS.h"
-
+#include "BrakePressureSensor.h"
+#include "Displacement.h"
 
 namespace BajaWildcatRacing
 {
@@ -19,17 +19,18 @@ namespace BajaWildcatRacing
 
             DrivetrainSubsystem(CANDispatcher& canDispatcher);
 
-            float getCVTTemperature();
+            CVTTemp getCVTTemperature();
             bool isCVTHot();
 
             EngineRPM getEngineRPM();
-
             
             WheelRPM getWheelRPM();
             float getCarSpeedMetersSec();
             float getCarSpeedMPH();
-            LatestLatLon getLatLon();
-            uint32_t getTime();
+
+            BrakePressure getBrakePressure();
+
+            ShockDisplacement getDisplacement();
 
         private:
             Tachometer tachometer;
@@ -38,7 +39,11 @@ namespace BajaWildcatRacing
 
             Spedometer spedometer;
 
-            GPS gps;
+            BrakePressureSensor frontBrakePressure;
+            BrakePressureSensor rearBrakePressure;
+
+            Displacement frontDisplacement;
+            Displacement rearDisplacement;
             
             bool cvtIsHot = false;
 

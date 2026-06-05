@@ -1,5 +1,5 @@
-#include "IMUSubsystem.h"
-#include "DataTypes.h"
+#include "GPSSubsystem.h"
+
 
 namespace BajaWildcatRacing
 {
@@ -9,11 +9,17 @@ namespace BajaWildcatRacing
 
     }
 
-    LatestLatLon GPSSubsystem::getLatLon(){
-        return gps.getLatestLatLon();
+    GPSPosition GPSSubsystem::getPosition(){
+        return gps.getPosition();
     }
 
-    LatestTime GPSSubsystem::getTime(){
-        return gps.getLatestTime();
+    uint32_t GPSSubsystem::getUnixEpoch(){
+        return gps.getUnixEpoch();
     }
+
+    bool GPSSubsystem::isReady(){
+        return gps.isReady();
+    }
+
+
 }
