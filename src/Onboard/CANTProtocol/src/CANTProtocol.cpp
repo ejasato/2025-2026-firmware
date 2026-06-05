@@ -1,4 +1,5 @@
 #include "CANTProtocol.h"
+#define DEBUG_CAN 0
 
 
 #if !defined(CANT_ARDUINO) && !defined(CANT_ESP32)
@@ -58,6 +59,8 @@ bool CANTProtocol::begin(){
 
     pinMode(CAN_INTERRUPT_PIN, INPUT);
 
+    ref = this;
+
     //ESP32 and Arduino have two slightly different implemenetations of attachInterrupt()
     //Also ESP32 needs its task defined 
     #if defined(CANT_ARDUINO)
@@ -68,7 +71,7 @@ bool CANTProtocol::begin(){
         xTaskCreate(
             ESP32ISRTrampoline,
             "Interrupt Handler",
-            1024, 
+            4096, 
             (void*)ref,
             3,
             &canTaskHandle);
@@ -109,7 +112,7 @@ bool CANTProtocol::registerCommand(byte commandID, void (*onRecieved) (unsigned 
 //Call in the loop() function to execute pending CAN requests and commands
 void CANTProtocol::execute(){
     #if DEBUG_CAN
-        Serial.println("L");
+        // Serial.println("L");
     #endif
     //Sort all the incoming CAN frames into their respective queues 
     while(frameQueueLength > 0){
@@ -266,6 +269,7 @@ void CANTProtocol::ISRHandler(){
 
 
 
+int test_idx = 0;
 
 //DON'T CALL THIS YOURSELF. THIS WILL MESS THINGS UP
 #if defined(CANT_ESP32)
@@ -283,27 +287,29 @@ void CANTProtocol::InterruptSubroutine(){
     long unsigned int rxId = 0;
     unsigned char len = 0;
     unsigned char rxBuf[8];
-    
+   
+
     //Interrupt goes low and stays low until all buffers are empty
     while(CAN.readMsgBuf(&rxId, &len, rxBuf) != CAN_NOMSG){
-        // #if DEBUG_CAN
-        //  Serial.println("ISR");
-        // #endif 
-        
+        #if DEBUG_CAN
+         Serial.println("ISR");
+        #endif 
         //If the length of the queue is 32 frames or greater (max size), drop it. 
         if(frameQueueLength > 31) break;
         
         int insertLocation = frameQueueFront + frameQueueLength;
         //If we're trying to insert at an index off the end of the array, wraparound to the front
         if(insertLocation > 31) insertLocation = insertLocation - 32;
-        
+       
         //memcpy doesn't like to copy into volatile, use a loop instead
         for(int i = 0; i < len; i++){
             pendingFrames[insertLocation].data[i] = rxBuf[i];
         }
         pendingFrames[insertLocation].dataLength = len;
         pendingFrames[insertLocation].callbackID = (rxId & 0x000FFFFF);
-        pendingFrames[insertLocation].dataID = ((rxId & 0x00F00000) >> 20); 
+        pendingFrames[insertLocation].dataID = ((rxId & 0x00F00000) >> 20);
+
+        test_idx++;
         
         frameQueueLength++;
     }
